@@ -77,6 +77,12 @@ sudo cp Library/LaunchAgents/org.pmbuko.kerbminder.plist /Library/LaunchAgents/
 sudo cp Library/Preferences/com.googlecode.pymacadmin.crankd.plist /Library/Preferences/
 ```
 
+[Download Pashua.app](http://www.bluem.net/en/mac/pashua/), mount the disk image, and then copy Pashua.app to the correct location:
+
+```
+sudo cp -Rp /Volumes/Pashua/Pashua.app /Library/Application\ Support/crankd/
+```
+
 Set the correct permissions:
 
 ```
@@ -90,6 +96,8 @@ sudo chmod 644 /Library/LaunchAgents/org.pmbuko.kerbminder.plist
 sudo chown -R root:wheel /Library/Preferences/com.googlecode.pymacadmin.crankd.plist
 sudo chmod 644 /Library/Preferences/com.googlecode.pymacadmin.crankd.plist
 ```
+
+
 
 Finally, start the LaunchDaemon and LaunchAgent. (Note the lack of sudo on the second command):
 
