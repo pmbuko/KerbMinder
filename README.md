@@ -2,11 +2,11 @@
 
 ![KerbMinder logo](installer_components/KerbMinder_logo.png "KerbMinder icon")
 
-KerbMinder is a tool for Mac OS X that attempts to automatically refresh or renew a logged-in user's Kerberos ticket any time the network state changes. It only presents a UI if a password is required to renew or retrieve a ticket.
+**KerbMinder** is a tool for Mac OS X that keeps a logged-in user's Kerberos ticket current by attempting to renew or refresh it automatically any time the network state changes. It only presents a UI if it needs the user to supply a password.
 
 ![KerbMinder dialog](installer_components/dialog.png "KerbMinder dialog")
 
-The password can be saved to the keychain so all subsequent renewals use it. Should the saved password get out of sync with the domain — e.g. after the user changes their password — the keychain will automatically remove the old saved password and the user will be prompted to enter one.
+The password can be saved to the keychain so all subsequent renewals can use it. Should the saved password get out of sync with the domain — e.g. after the user changes their password — the keychain will automatically remove the old saved password and the user will be prompted to enter one.
 
 KerbMinder is designed for users with network-authenticated mobile accounts who often work off of corporate networks via VPN.
 
@@ -19,7 +19,10 @@ Portions of KerbMinder were inspired by code written by these fine humans (links
 * [Gary Larizza](https://github.com/glarizza/scripts/blob/master/python/RefactoredCrankTools.py)
 * [Per Olofsson](https://github.com/MagerValp/Scripted-Mac-Package-Creation/blob/master/scripts/postinstall)
 
-I'd also like to thank [Tim Sutton](http://macops.ca/) for [telling me about Pashua](http://twitter.com/tvsutton/status/544099669270605824).
+I'd also like to thank
+
+* [Allister Banks](https://twitter.com/Sacrilicious/status/543451138239258624) for pointing out an effective dig command to test for domain reachability.
+* [Tim Sutton](http://twitter.com/tvsutton/status/544099669270605824) for telling me about Pashua.
 
 ## Requirements
 
@@ -48,7 +51,7 @@ This script runs as a triggered LaunchAgent. It refreshes or renews Kerberos tic
 
 If a ticket is refreshable and non-expired, it is refreshed silently. If a ticket is expired or nor present, the script checks if the password has been saved in the keychain. If a keychain entry exists, the saved password is used to retrieve a ticket. If an entry does not exist, the user is prompted for their password (using a secure entry dialog box) and allowed two tries to reduce the chances of account lockout. Two incorrect password attempts results in a warning dialog. If an incorrect attempt results in a locked account, the user is informed that their account is locked.
 
-If the password is correct, the ticket is renewed. If the user checked the "Remember this password in my keychain" option then the password is saved to the keychain so future renewals can occur without user interaction. If the password becomes out of sync with the domain -- e.g. after the domain password has been changed -- then the stored keychain item is purged and the user is prompted for their password.
+If the password is correct the ticket is renewed and, if the user has checked the **_Remember this password in my keychain_** option, that password is saved to the keychain so future renewals can occur without user interaction. If the password becomes out of sync with the domain -- e.g. after the domain password has been changed -- then the stored keychain item is purged and the user is prompted for their password.
 
 ### Pashua.py and Pashua.app
 
@@ -98,7 +101,6 @@ sudo chmod 644 /Library/Preferences/com.googlecode.pymacadmin.crankd.plist
 ```
 
 
-
 Finally, start the LaunchDaemon and LaunchAgent. (Note the lack of sudo on the second command):
 
 ```
@@ -106,6 +108,6 @@ sudo launchctl load /Library/LaunchDaemons/com.googlecode.pymacadmin.crankd.plis
 launchctl load /Library/LaunchAgents/org.pmbuko.kerbminder.plist
 ```
 
-## ADPassMon Integration (coming soon)
+## ADPassMon Integration
 
-In the next release of my [ADPassMon](http://yourmacguy.wordpress.com/ADPassMon) software, users will be able to enable/disable KerbMinder via a menu item.
+The latest release of my [ADPassMon](http://yourmacguy.wordpress.com/ADPassMon) software lets users enable/disable KerbMinder via a menu item.
