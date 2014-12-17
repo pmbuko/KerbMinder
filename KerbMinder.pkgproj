@@ -1189,7 +1189,7 @@
 				<key>OVERWRITE_PERMISSIONS</key>
 				<true/>
 				<key>VERSION</key>
-				<string>1.0b5</string>
+				<string>1.0rc1</string>
 			</dict>
 			<key>UUID</key>
 			<string>1DC0139D-0266-4A6C-9BDE-99F49786AC1E</string>
@@ -1333,7 +1333,19 @@
 			<key>INTRODUCTION</key>
 			<dict>
 				<key>LOCALIZATIONS</key>
-				<array/>
+				<array>
+					<dict>
+						<key>LANGUAGE</key>
+						<string>English</string>
+						<key>VALUE</key>
+						<dict>
+							<key>PATH</key>
+							<string>installer_components/INTRO.rtfd</string>
+							<key>PATH_TYPE</key>
+							<integer>1</integer>
+						</dict>
+					</dict>
+				</array>
 			</dict>
 			<key>LICENSE</key>
 			<dict>
