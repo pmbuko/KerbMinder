@@ -82,10 +82,11 @@ sudo cp Library/LaunchAgents/org.pmbuko.kerbminder.plist /Library/LaunchAgents/
 sudo cp Library/Preferences/com.googlecode.pymacadmin.crankd.plist /Library/Preferences/
 ```
 
-[Download Pashua.app](http://www.bluem.net/en/mac/pashua/), mount the disk image, and then copy Pashua.app to the correct location:
+[Download Pashua.app](http://www.bluem.net/en/mac/pashua/), mount the disk image, copy Pashua.app to the correct location, and remove the inetnet quarantine attribute:
 
 ```
 sudo cp -Rp /Volumes/Pashua/Pashua.app /Library/Application\ Support/crankd/
+sudo xattr -d com.apple.quarantine /Library/Application\ Support/crankd/Pashua.app
 ```
 
 Set the correct permissions:
