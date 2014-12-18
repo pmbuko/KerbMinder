@@ -33,6 +33,8 @@ I'd also like to thank
 
 ## How It Works
 
+KerbMinder logs its activity to the system log. You can open up Console.app and filter for “kerbminder” to see what it’s up to. You may want to make a network change (e.g. toggle off/on your wi-fi interface) to force it to act.
+
 KerbMinder has a few components that operate in tandem.
 
 ### crankd.py
