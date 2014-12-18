@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Thanks to Per Olofsson for the content of this post-install
+# Thanks to Per Olofsson for the framework of this post-install
 # source: https://github.com/MagerValp/Scripted-Mac-Package-Creation/blob/master/scripts/postinstall
 
 # (Re)Load launch daemon and agent only if we're installing on a live system.
