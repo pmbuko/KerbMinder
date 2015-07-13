@@ -1185,11 +1185,11 @@
 				<key>IDENTIFIER</key>
 				<string>org.pmbuko.pkg.KerbMinder</string>
 				<key>NAME</key>
-				<string>KerbMinder</string>
+				<string>KerbMinder.v1.1</string>
 				<key>OVERWRITE_PERMISSIONS</key>
 				<true/>
 				<key>VERSION</key>
-				<string>1.0rc2</string>
+				<string>1.1</string>
 			</dict>
 			<key>UUID</key>
 			<string>1DC0139D-0266-4A6C-9BDE-99F49786AC1E</string>
@@ -1209,7 +1209,7 @@
 			ZW50LVN0eWxlLVR5cGUiIGNvbnRlbnQ9InRleHQvY3NzIj4KPHRp
 			dGxlPjwvdGl0bGU+CjxtZXRhIG5hbWU9IkdlbmVyYXRvciIgY29u
 			dGVudD0iQ29jb2EgSFRNTCBXcml0ZXIiPgo8bWV0YSBuYW1lPSJD
-			b2NvYVZlcnNpb24iIGNvbnRlbnQ9IjEzNDMuMTYiPgo8c3R5bGUg
+			b2NvYVZlcnNpb24iIGNvbnRlbnQ9IjEzNDguMTciPgo8c3R5bGUg
 			dHlwZT0idGV4dC9jc3MiPgo8L3N0eWxlPgo8L2hlYWQ+Cjxib2R5
 			Pgo8L2JvZHk+CjwvaHRtbD4K
 			</data>
@@ -1664,7 +1664,7 @@
 				</dict>
 			</array>
 			<key>NAME</key>
-			<string>KerbMinder</string>
+			<string>KerbMinder.v1.1</string>
 			<key>REFERENCE_FOLDER_PATH</key>
 			<string>/Users/bukowinskip/Development/KerbMinder</string>
 		</dict>

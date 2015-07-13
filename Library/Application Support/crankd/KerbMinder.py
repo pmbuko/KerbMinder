@@ -16,13 +16,14 @@
 # This script is meant to be triggered by a launch agent working in conjunction with a
 # crankd launch daemon that looks for network state changes.
 #
-# Last Revised - 12/15/2014
+# Last Revised - 7/13/2015
 
 __author__  = 'Peter Bukowinski (pmbuko@gmail.com)'
-__version__ = '1.0b5'
+__version__ = '1.1'
 
 import re, subprocess, sys, syslog
 import os, plistlib
+import getpass
 import Pashua
 from SystemConfiguration import SCDynamicStoreCopyConsoleUser
 
@@ -40,9 +41,19 @@ def logPrint(message, l=True, p=True):
   if p: print message
 
 
+def getUsername():
+  """Returns the user associated with the LaunchAgent running KerbMinder.py"""
+  return getpass.getuser()
+
+
 def getConsoleUser():
   """Returns current console user"""
   return SCDynamicStoreCopyConsoleUser(None, None, None)[0]
+
+
+def usersMatch():
+  """Returns True if LaunchAgent owner is logged in to console."""
+  return True if getUsername() == getConsoleUser() else False
 
 
 def getKerbID():
@@ -231,7 +242,7 @@ def checkKeychain(kid):
   domain = domainFromKID(kid)
   try:
     subprocess.check_output(['security', 'find-generic-password',
-                             '-a', getConsoleUser(),
+                             '-a', user,
                              '-l', domain + ' (' + user + ')',
                              '-s', domain,
                              '-c', 'aapl'])
@@ -319,7 +330,7 @@ def enabledByPlist():
 
 def main():
   """Start me up"""
-  if enabledByPlist():
+  if enabledByPlist() and usersMatch():
     kid = getKerbID()
     domain = domainFromKID(kid)
     if domainDigCheck(domain):
