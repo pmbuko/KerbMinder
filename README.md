@@ -45,7 +45,7 @@ Part of the [PyMacAdmin](https://github.com/acdha/pymacadmin) project, crankd is
 
 This script's main purpose is to determine if any ethernet interface (e.g. en0, en1, etc.) has an ip address. When called, it first sleeps for 30 seconds, allowing sufficient time for a wi-fi or VPN connection to be established. Then (with the help of ```networksetup -listnetworkserviceorder```) it gets a list of ethernet interfaces in service priority order and goes down that list looking for the first one with an ip address.
 
-If an interface with an IP address is found, it touches a trigger file (```/Library/Application Support/crankd/krfiles/trigger```) that the following LaunchAgent watches. This handoff in duties is necessary because this script runs as a LaunchDaemons in the root context, but Kerberos ticket renewals must be done in the user's context.
+If an interface with an IP address is found, it touches a trigger file (```/Library/Application Support/crankd/kmfiles/trigger```) that the following LaunchAgent watches. This handoff in duties is necessary because this script runs as a LaunchDaemons in the root context, but Kerberos ticket renewals must be done in the user's context.
 
 ### KerbMinder.py
 
@@ -93,7 +93,7 @@ Set the correct permissions:
 
 ```
 sudo chown -R root:admin /Library/Application\ Support/crankd
-sudo chmod 777 /Library/Application\ Support/crankd/krfiles
+sudo chmod 777 /Library/Application\ Support/crankd/kmfiles
 sudo chmod 755 /Library/Application\ Support/crankd/*.py
 sudo chown -R root:wheel /Library/LaunchDaemons/com.googlecode.pymacadmin.crankd.plist
 sudo chmod 644 /Library/LaunchDaemons/com.googlecode.pymacadmin.crankd.plist
