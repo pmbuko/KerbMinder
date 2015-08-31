@@ -217,7 +217,7 @@ def passDialog(kid, retry = False, image = image_path):
 def kinitCommand(password):
   """Runs the kinit command with supplied password."""
   renew1 = subprocess.Popen(['echo',password], stdout=subprocess.PIPE)
-  renew2 = subprocess.Popen(['kinit','-l','10h','--renewable','--password-file=STDIN'],
+  renew2 = subprocess.Popen(['kinit','-l','10h','--renewable','--password-file=STDIN',getConsoleUser()+'@'+domainFromKID(kid)],
                             stderr=subprocess.PIPE,
                             stdin=renew1.stdout,
                             stdout=subprocess.PIPE)
@@ -229,7 +229,7 @@ def kinitCommand(password):
 def kinitKeychainCommand(kid):
   """Runs the kinit command with keychain password."""
   try:
-    subprocess.check_output(['kinit', '-l', '10h', '--renewable'])
+    subprocess.check_output(['kinit', '-l', '10h', '--renewable',getConsoleUser()+'@'+domainFromKID(kid)])
   except:
     """exception most likely means a password mismatch,
     so we should run renewTicket again."""
