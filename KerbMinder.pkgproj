@@ -1185,11 +1185,11 @@
 				<key>IDENTIFIER</key>
 				<string>org.pmbuko.pkg.KerbMinder</string>
 				<key>NAME</key>
-				<string>KerbMinder.v1.1</string>
+				<string>KerbMinder.v1.2</string>
 				<key>OVERWRITE_PERMISSIONS</key>
 				<true/>
 				<key>VERSION</key>
-				<string>1.1</string>
+				<string>1.2</string>
 			</dict>
 			<key>UUID</key>
 			<string>1DC0139D-0266-4A6C-9BDE-99F49786AC1E</string>
@@ -1252,6 +1252,8 @@
 								</dict>
 								<key>PACKAGE_UUID</key>
 								<string>1DC0139D-0266-4A6C-9BDE-99F49786AC1E</string>
+								<key>REQUIREMENTS</key>
+								<array/>
 								<key>TITLE</key>
 								<array/>
 								<key>TOOLTIP</key>
@@ -1664,7 +1666,7 @@
 				</dict>
 			</array>
 			<key>NAME</key>
-			<string>KerbMinder.v1.1</string>
+			<string>KerbMinder.v1.2</string>
 			<key>REFERENCE_FOLDER_PATH</key>
 			<string>/Users/bukowinskip/Development/KerbMinder</string>
 		</dict>
