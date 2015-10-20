@@ -113,4 +113,4 @@ launchctl load /Library/LaunchAgents/org.pmbuko.kerbminder.plist
 
 ## ADPassMon Integration
 
-The latest release of my [ADPassMon](http://yourmacguy.wordpress.com/ADPassMon) software lets users enable/disable KerbMinder via a menu item.
+The latest release of my [ADPassMon](https://github.com/macmule/ADPassMon/releases) software lets users enable/disable KerbMinder via a menu item.
