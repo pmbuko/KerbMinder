@@ -56,7 +56,7 @@ KerbMinder has a few components that operate in tandem.
 
 ### crankd.py
 
-Part of the [PyMacAdmin](https://github.com/nigelkersten/pymacadmin) project, crankd is an always-on LaunchDaemon configured to look for network changes. Specifically, it monitors the System Configuration framework's ```State:/Network/Global/IPv4``` subkey, which blips any time an ethernet interface gains or loses an IPv4 address. When a change is detected, it calls the following script.
+Part of the [PyMacAdmin](https://github.com/MacSysadmin/pymacadmin) project, crankd is an always-on LaunchDaemon configured to look for network changes. Specifically, it monitors the System Configuration framework's ```State:/Network/Global/IPv4``` subkey, which blips any time an ethernet interface gains or loses an IPv4 address. When a change is detected, it calls the following script.
 
 ### CrankTools.py
 
