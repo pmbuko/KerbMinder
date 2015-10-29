@@ -4,7 +4,7 @@ import logging
 import os
 
 from nose.tools import nottest
-from KerbMinder2 import *
+from KerbMinder import *
 from unittest import TestCase
 from mock import *
 
@@ -18,7 +18,7 @@ class TestPrincipal(TestCase):
     # TODO: ce machin doit marcher demain
     # def test_get_ok(self):
     #     principal = Principal()
-    #     with patch('KerbMinder2.Principal.get_from_ad', return_value="testuser@TEST.COM") as get_from_ad:
+    #     with patch('KerbMinder.Principal.get_from_ad', return_value="testuser@TEST.COM") as get_from_ad:
     #         nose.tools.eq_(principal.get(), "testuser@TEST.COM")
 
     @patch('subprocess.check_output')
@@ -27,7 +27,7 @@ class TestPrincipal(TestCase):
         nose.tools.assert_raises(Principal.NotBound, Principal.get_from_ad)
         #mock_check_call.assert_called_with(['dsconfigad', '-show'])
 
-    @patch('KerbMinder2.Principal.get_principal_from_ad')
+    @patch('KerbMinder.Principal.get_principal_from_ad')
     def test_ad_bound(self, mock_get_principal_from_ad):
         #https://github.com/nens/nensbuild/blob/master/nensbuild/tests.py
         with patch('subprocess.check_output', return_value = "Active Directory TEST") as check_output:
@@ -121,7 +121,7 @@ ns2.test.com. 1200	IN A	10.0.0.2
                                  'display dialog "' + _message + '" with title "' +
                                  _title + '" with icon caution buttons {"OK"} default button 1'])
 
-    @patch('KerbMinder2.log_print')
+    @patch('KerbMinder.log_print')
     def test_exit_dialog_fail(self, mock_log_print):
         _message = _title = _log = "test"
         with patch('subprocess.check_output', side_effect=subprocess.CalledProcessError(1, 'osascript', output="")) as check_output:
@@ -149,10 +149,6 @@ class TestTicket(TestCase):
         mock_check_call.assert_called_with(['klist', '--test'])
         nose.tools.ok_(returned, "Ticket should be present")
 
-    #@patch('KerbMinder2.domain_dig_check')
-    #mock_domain_dig_check.return_value = True
-
-
     @patch('subprocess.check_output')
     def test_ticket_refresh_false(self, mock_check_call):
         mock_check_call.side_effect = no_credentials_found
@@ -179,7 +175,7 @@ class TestTicket(TestCase):
         mock_check_call.assert_called_with(['klist', '--test'])
         nose.tools.ok_(returned, "Ticket should be present")
 
-    @patch('KerbMinder2.Keychain.exists')
+    @patch('KerbMinder.Keychain.exists')
     @patch('subprocess.check_output')
     def test_ticket_kinit_with_keychain_ok(self, mock_check_output, mock_keychain_exists):
         mock_keychain_exists.return_value = True
@@ -190,7 +186,7 @@ class TestTicket(TestCase):
         returned = _ticket.kinit(_principal, _keychain)
         nose.tools.ok_(returned, "NOT OK")
 
-    @patch('KerbMinder2.Keychain.exists')
+    @patch('KerbMinder.Keychain.exists')
     @patch('subprocess.check_output')
     def ticket_kinit_with_keychain_custom(self, _error, _exception, mock_check_output, mock_keychain_exists):
         # http://paver.googlecode.com/svn@88/trunk/paver/tests/test_easy.py
@@ -215,9 +211,9 @@ class TestTicket(TestCase):
         log_print(str(args[0]))
 
     @nottest
-    @patch('KerbMinder2.Keychain.exists')
+    @patch('KerbMinder.Keychain.exists')
     @patch('subprocess.Popen')
-    @patch('KerbMinder2.pass_dialog')
+    @patch('KerbMinder.pass_dialog')
     def test_ticket_kinit_with_password_ok(self, mock_pass_dialog, mock_popen, mock_keychain_exists):
         mock_keychain_exists.return_value = False
         mock_popen.side_effect = self.my_side_effect

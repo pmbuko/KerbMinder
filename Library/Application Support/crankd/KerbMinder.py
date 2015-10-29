@@ -2,7 +2,7 @@
 #  -*- coding: utf-8 -*-
 
 """
-KerbMinder2.py
+KerbMinder.py
 
 This script refreshes or renews kerberos tickets based on their status. It checks for
 domain reachability and connectivity before proceeding. If machine is not bound to AD,
@@ -43,14 +43,14 @@ __credits__ = ["Joe Chilcote",
                "Tim Sutton"]
 
 __license__ = "GPL"
-__version__ = "2.0"
+__version__ = "1.3"
 __maintainer__ = "Peter Bukowinski"
 __email__ = "pmbuko@gmail.com"
 __status__ = "Development"
 
 PATH_ROOT = os.path.dirname(os.path.realpath(__file__))
 PATH_USER = os.path.expanduser('~/Library/Application Support/crankd')
-PLIST_PATH = "/Library/Preferences/com.github.ftiff.KerbMinder2.plist"
+PLIST_PATH = "/Library/Preferences/org.pmbuko.kerbminder.plist"
 
 
 def log_print(message, _log=True, _print=True):
