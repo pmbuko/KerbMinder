@@ -7,6 +7,7 @@
 
 **KerbMinder** is a tool for Mac OS X that keeps a logged-in user's Kerberos ticket current by attempting to renew or refresh it automatically any time the network state changes. It only presents a UI if it needs the user to supply a password.
 
+![KerbMinder login dialog](installer_components/KerbMinder2_login.png "KerbMinder logindialog")
 ![KerbMinder dialog](installer_components/dialog.png "KerbMinder dialog")
 
 The password can be saved to the keychain so all subsequent renewals can use it. Should the saved password get out of sync with the domain — e.g. after the user changes their password — the keychain will automatically remove the old saved password and the user will be prompted to enter one.
@@ -30,7 +31,7 @@ The largest share of gratitude goes to [Purdue Pharma L.P.](http://www.purduepha
 
 Portions of KerbMinder were inspired by code written by these fine humans (links point to the inspiring code, where possible):
 
-* Huge thank you to [Francois Levaux](http://github.com/ftiff/KerbMinder2), who is personally responsible for all the changes introduced in v1.3.
+* Huge thank you to [Francois 'ftiff' Levaux-Tiffreau](http://github.com/ftiff), who is personally responsible for all the changes introduced in v1.3.
 * [Joe Chilcote](https://github.com/chilcote)
 * [Graham Gilbert](http://grahamgilbert.com/blog/2013/07/12/using-crankd-to-react-to-network-events/)
 * [Gary Larizza](https://github.com/glarizza/scripts/blob/master/python/RefactoredCrankTools.py)
