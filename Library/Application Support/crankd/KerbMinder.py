@@ -19,7 +19,7 @@ remove the old saved password and the user will be prompted to enter one.
 This script is meant to be triggered by a launch agent working in conjunction with a
 crankd launch daemon that looks for network state changes.
 
-Last Revised - 01.10.2015
+Last Revised - 29.10.2015
 """
 
 from __future__ import print_function

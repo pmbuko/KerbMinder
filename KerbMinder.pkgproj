@@ -1209,7 +1209,7 @@
 			ZW50LVN0eWxlLVR5cGUiIGNvbnRlbnQ9InRleHQvY3NzIj4KPHRp
 			dGxlPjwvdGl0bGU+CjxtZXRhIG5hbWU9IkdlbmVyYXRvciIgY29u
 			dGVudD0iQ29jb2EgSFRNTCBXcml0ZXIiPgo8bWV0YSBuYW1lPSJD
-			b2NvYVZlcnNpb24iIGNvbnRlbnQ9IjE0MDQuMTMiPgo8c3R5bGUg
+			b2NvYVZlcnNpb24iIGNvbnRlbnQ9IjEzNDguMTciPgo8c3R5bGUg
 			dHlwZT0idGV4dC9jc3MiPgo8L3N0eWxlPgo8L2hlYWQ+Cjxib2R5
 			Pgo8L2JvZHk+CjwvaHRtbD4K
 			</data>
@@ -1359,9 +1359,21 @@
 					<string>2014</string>
 				</dict>
 				<key>LOCALIZATIONS</key>
-				<array/>
+				<array>
+					<dict>
+						<key>LANGUAGE</key>
+						<string>English</string>
+						<key>VALUE</key>
+						<dict>
+							<key>PATH</key>
+							<string>installer_components/LICENSE.rtfd</string>
+							<key>PATH_TYPE</key>
+							<integer>1</integer>
+						</dict>
+					</dict>
+				</array>
 				<key>MODE</key>
-				<integer>1</integer>
+				<integer>0</integer>
 				<key>TEMPLATE</key>
 				<string>MIT License</string>
 			</dict>
@@ -1685,7 +1697,7 @@
 			<key>NAME</key>
 			<string>KerbMinder.v1.3</string>
 			<key>REFERENCE_FOLDER_PATH</key>
-			<string>/Users/francois/Git/KerbMinder.fork</string>
+			<string>/Users/bukowinskip/Development/KerbMinder</string>
 		</dict>
 	</dict>
 	<key>TYPE</key>
