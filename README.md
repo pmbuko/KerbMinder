@@ -1,3 +1,7 @@
+[![Build Status](https://travis-ci.org/pmbuko/KerbMinder.svg?branch=master)](https://travis-ci.org/pmbuko/KerbMinder)
+[![codecov.io](https://codecov.io/github/pmbuko/KerbMinder/coverage.svg?branch=master)](https://codecov.io/github/pmbuko/KerbMinder?branch=master)
+
+
 # KerbMinder
 
 ![KerbMinder logo](installer_components/KerbMinder_logo.png "KerbMinder icon")
@@ -12,8 +16,16 @@ KerbMinder is designed for users with network-authenticated mobile accounts who 
 
 ### Acknowledgements
 
+The largest share of gratitude goes to [Purdue Pharma L.P.](http://www.purduepharma.com/) for the following reasons:
+
+* inspiring and funding the development of KerbMinder.
+* providing a clear project scope.
+* testing the software through its stages of development.
+* agreeing to the project’s release as open source.
+
 Portions of KerbMinder were inspired by code written by these fine humans (links point to the inspiring code, where possible):
 
+* Huge thank you to [Francois Levaux](http://github.com/ftiff/KerbMinder2), who is personally responsible for all the changes introduced in v1.3.
 * [Joe Chilcote](https://github.com/chilcote)
 * [Graham Gilbert](http://grahamgilbert.com/blog/2013/07/12/using-crankd-to-react-to-network-events/)
 * [Gary Larizza](https://github.com/glarizza/scripts/blob/master/python/RefactoredCrankTools.py)
@@ -28,7 +40,7 @@ I'd also like to thank
 
 * Mac OS X 10.8.5 or newer (compatible with 10.10.x)
 * Python 2.7 (part of OS)
-* crankd (PyMacAdmin, included)
+* crankd (PyMacAdmin, included as a submodule)
 * Pashua (included)
 
 ## How It Works
@@ -39,7 +51,7 @@ KerbMinder has a few components that operate in tandem.
 
 ### crankd.py
 
-Part of the [PyMacAdmin](https://github.com/acdha/pymacadmin) project, crankd is an always-on LaunchDaemon configured to look for network changes. Specifically, it monitors the System Configuration framework's ```State:/Network/Global/IPv4``` subkey, which blips any time an ethernet interface gains or loses an IPv4 address. When a change is detected, it calls the following script.
+Part of the [PyMacAdmin](https://github.com/nigelkersten/pymacadmin) project, crankd is an always-on LaunchDaemon configured to look for network changes. Specifically, it monitors the System Configuration framework's ```State:/Network/Global/IPv4``` subkey, which blips any time an ethernet interface gains or loses an IPv4 address. When a change is detected, it calls the following script.
 
 ### CrankTools.py
 
@@ -49,9 +61,9 @@ If an interface with an IP address is found, it touches a trigger file (```/Libr
 
 ### KerbMinder.py
 
-This script runs as a triggered LaunchAgent. It refreshes or renews Kerberos tickets based on their discovered status. Before attempting a renewal, it first checks for domain reachability.
+This script runs both when a user logs in, and as a triggered LaunchAgent. It refreshes or renews Kerberos tickets based on their discovered status. Before attempting a renewal, it first checks for domain reachability.
 
-If a ticket is refreshable and non-expired, it is refreshed silently. If a ticket is expired or nor present, the script checks if the password has been saved in the keychain. If a keychain entry exists, the saved password is used to retrieve a ticket. If an entry does not exist, the user is prompted for their password (using a secure entry dialog box) and allowed two tries to reduce the chances of account lockout. Two incorrect password attempts results in a warning dialog. If an incorrect attempt results in a locked account, the user is informed that their account is locked.
+If a ticket is refreshable and non-expired, it is refreshed silently. If a ticket is expired or not present, the script checks if the password has been saved in the keychain. If a keychain entry exists, the saved password is used to retrieve a ticket. If an entry does not exist, the user is prompted for their password (using a secure entry dialog box) and allowed two tries to reduce the chances of account lockout. Two incorrect password attempts results in a warning dialog. If an incorrect attempt results in a locked account, the user is informed that their account is locked.
 
 If the password is correct the ticket is renewed and, if the user has checked the **_Remember this password in my keychain_** option, that password is saved to the keychain so future renewals can occur without user interaction. If the password becomes out of sync with the domain -- e.g. after the domain password has been changed -- then the stored keychain item is purged and the user is prompted for their password.
 
