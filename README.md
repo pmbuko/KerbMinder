@@ -80,7 +80,7 @@ If the password is correct the ticket is renewed and, if the user has checked th
 
 ### The simple way
 
-Download the [KerbMinder release package](https://github.com/pmbuko/KerbMinder/releases/download/v1.0rc2/KerbMinder.v1.0rc2.pkg.zip) and run it. No reboot or logout is necessary, but admin privileges are required.
+Download the latest [KerbMinder release package](https://github.com/pmbuko/KerbMinder/releases/) and run it. No reboot or logout is necessary, but admin privileges are required.
 
 The KerbMinder.pkgproj bundle in this repo is an installer builder project for the free [Packages](http://s.sudre.free.fr/Software/Packages/about.html) app. If you'd like to build your own .pkg installer, just download the app, double-click on the project file, and then build and run the installer.
 
