@@ -10,6 +10,8 @@
 	</array>
 	<key>ThrottleInterval</key>
 	<integer>45</integer>
+	<key>RunAtLoad</key>
+	<true/>
 	<key>WatchPaths</key>
 	<array>
 		<string>/Library/Application Support/crankd/kmfiles/trigger</string>
