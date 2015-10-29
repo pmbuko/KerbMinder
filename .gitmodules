@@ -1,0 +1,3 @@
+[submodule "pymacadmin"]
+	path = pymacadmin
+	url = https://github.com/nigelkersten/pymacadmin.git
