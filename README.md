@@ -1,7 +1,6 @@
 [![Build Status](https://travis-ci.org/pmbuko/KerbMinder.svg?branch=master)](https://travis-ci.org/pmbuko/KerbMinder)
 [![codecov.io](https://codecov.io/github/pmbuko/KerbMinder/coverage.svg?branch=master)](https://codecov.io/github/pmbuko/KerbMinder?branch=master)
 
-
 # KerbMinder
 
 ![KerbMinder logo](installer_components/KerbMinder_logo.png "KerbMinder icon")
@@ -12,13 +11,19 @@
 
 The password can be saved to the keychain so all subsequent renewals can use it. Should the saved password get out of sync with the domain — e.g. after the user changes their password — the keychain will automatically remove the old saved password and the user will be prompted to enter one.
 
-KerbMinder is designed for users with network-authenticated mobile accounts who often work off of corporate networks via VPN.
+KerbMinder is designed for environments where users
+
+* have network-authenticated mobile accounts and often work off of corporate networks via VPN.
+* would like the benefits of Kerberos SSO without having to bind the computer to a directory service.
+
+![KerbMinder w/o binding](installer_components/login_dialog.png "KerbMinder login")
+
 
 ### Acknowledgements
 
 The largest share of gratitude goes to [Purdue Pharma L.P.](http://www.purduepharma.com/) for the following reasons:
 
-* inspiring and funding the development of KerbMinder.
+* inspiring and funding the initial development of KerbMinder.
 * providing a clear project scope.
 * testing the software through its stages of development.
 * agreeing to the project’s release as open source.
@@ -38,7 +43,7 @@ I'd also like to thank
 
 ## Requirements
 
-* Mac OS X 10.8.5 or newer (compatible with 10.10.x)
+* Mac OS X 10.8.5 or newer (compatible up to with 10.11.x)
 * Python 2.7 (part of OS)
 * crankd (PyMacAdmin, included as a submodule)
 * Pashua (included)
