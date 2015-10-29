@@ -32,25 +32,24 @@ import plistlib
 
 import Pashua
 
-__author__ = ( 'Peter Bukowinski (pmbuko@gmail.com), '
-                'Francois Levaux-Tiffreau (fti@me.com)'
-               )
-__credits__ = ["Joe Chilcote",
-               "Graham Gilbert",
-               "Gary Larizza",
-               "Per Olofsson",
-               "Allister Banks",
-               "Tim Sutton"]
+__author__  = ('Peter Bukowinski (pmbuko@gmail.com)',
+               'Francois Levaux-Tiffreau (fti@me.com)')
+__credits__ = ['Joe Chilcote',
+               'Graham Gilbert',
+               'Gary Larizza',
+               'Per Olofsson',
+               'Allister Banks',
+               'Tim Sutton']
 
-__license__ = "GPL"
-__version__ = "1.3"
-__maintainer__ = "Peter Bukowinski"
-__email__ = "pmbuko@gmail.com"
-__status__ = "Development"
+__license__    = 'GPL'
+__version__    = '1.3'
+__maintainer__ = 'Peter Bukowinski'
+__email__      = 'pmbuko@gmail.com'
+__status__     = 'Development'
 
-PATH_ROOT = os.path.dirname(os.path.realpath(__file__))
-PATH_USER = os.path.expanduser('~/Library/Application Support/crankd')
-PLIST_PATH = "/Library/Preferences/org.pmbuko.kerbminder.plist"
+PATH_ROOT  = os.path.dirname(os.path.realpath(__file__))
+PATH_USER  = os.path.expanduser('~/Library/Application Support/crankd')
+PLIST_PATH = '/Library/Preferences/org.pmbuko.kerbminder.plist'
 
 
 def log_print(message, _log=True, _print=True):
