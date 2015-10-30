@@ -1223,7 +1223,7 @@
 				<key>BACKGROUND_PATH</key>
 				<dict>
 					<key>PATH</key>
-					<string>installer_components/KerbMinder_logo.png</string>
+					<string>installer_components/km_logo_256x.png</string>
 					<key>PATH_TYPE</key>
 					<integer>1</integer>
 				</dict>
