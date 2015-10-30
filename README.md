@@ -30,7 +30,7 @@ The largest share of gratitude goes to [Purdue Pharma L.P.](http://www.purduepha
 
 Portions of KerbMinder were inspired by code written by these fine humans (links point to the inspiring code, where possible):
 
-* Huge thank you to [Francois 'ftiff' Levaux-Tiffreau](http://github.com/ftiff), who is personally responsible for all the changes introduced in v1.3.
+* [Francois 'ftiff' Levaux-Tiffreau](http://github.com/ftiff), who is personally responsible for all the changes introduced in v1.3. (Many thanks!)
 * [Joe Chilcote](https://github.com/chilcote)
 * [Graham Gilbert](http://grahamgilbert.com/blog/2013/07/12/using-crankd-to-react-to-network-events/)
 * [Gary Larizza](https://github.com/glarizza/scripts/blob/master/python/RefactoredCrankTools.py)
