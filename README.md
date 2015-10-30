@@ -3,7 +3,7 @@
 
 # KerbMinder
 
-![KerbMinder logo](installer_components/KerbMinder_logo.png "KerbMinder icon")
+![KerbMinder logo](installer_components/km_logo_256x.png "KerbMinder icon")
 
 **KerbMinder** is a tool for Mac OS X that keeps a logged-in user's Kerberos ticket current by attempting to renew or refresh it automatically any time the network state changes. It only presents a UI if it needs the user to supply a password.
 
