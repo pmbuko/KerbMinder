@@ -43,7 +43,7 @@ I'd also like to thank
 
 ## Requirements
 
-* Mac OS X 10.8.5 or newer (compatible up to with 10.11.x)
+* Mac OS X 10.8.5 or newer, including El Capitan (10.11.x)
 * Python 2.7 (part of OS)
 * crankd (PyMacAdmin, included as a submodule)
 * Pashua (included)
@@ -119,7 +119,6 @@ sudo chmod 644 /Library/LaunchAgents/org.pmbuko.kerbminder.plist
 sudo chown -R root:wheel /Library/Preferences/com.googlecode.pymacadmin.crankd.plist
 sudo chmod 644 /Library/Preferences/com.googlecode.pymacadmin.crankd.plist
 ```
-
 
 Finally, start the LaunchDaemon and LaunchAgent. (Note the lack of sudo on the second command):
 
