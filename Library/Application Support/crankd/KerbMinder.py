@@ -281,8 +281,9 @@ class Principal(object):
             match = re.search(r'[a-zA-Z0-9+_\-\.]+@[^;]+\.[A-Z]{2,}', output, re.IGNORECASE)
             match = match.group()
 
-        except subprocess.CalledProcessError as error:
-            log_print("Can't find Principal from AD: " + str(error))
+        except (subprocess.CalledProcessError, AttributeError) as error:
+            log_print("Can't find Principal from AD: " + str(error) + ". Exiting.")
+            sys.exit(0)
 
         else:
             log_print('Kerberos Principal is ' + match)
