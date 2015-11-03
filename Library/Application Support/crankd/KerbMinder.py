@@ -247,12 +247,16 @@ class Principal(object):
             self.principal = self.get_from_user()
 
     @staticmethod
+    def cmd_dsconfigad_show():
+        return subprocess.check_output(['dsconfigad', '-show'])
+
+    @staticmethod
     def get_from_ad():
         """Returns the Kerberos ID of the current user by searching directory services. If no
         KID is found, either the search path is incorrect or the domain is not accessible."""
 
         try:
-            output = subprocess.check_output(['dsconfigad', '-show'])
+            output = Principal.cmd_dsconfigad_show()
             if "Active Directory" in output:
                 return Principal.get_principal_from_ad()
             else:
@@ -261,6 +265,15 @@ class Principal(object):
         except (subprocess.CalledProcessError, Principal.NotBound) as error:
             log_print(str(error))
             raise
+
+    @staticmethod
+    def cmd_dscl_search(user_path):
+        return subprocess.check_output(['dscl',
+                                         '/Search',
+                                         'read',
+                                         user_path,
+                                         'AuthenticationAuthority'],
+                                         stderr=subprocess.STDOUT)
 
     @staticmethod
     def get_principal_from_ad():
@@ -272,12 +285,7 @@ class Principal(object):
         user_path = '/Users/' + getpass.getuser()
 
         try:
-            output = subprocess.check_output(['dscl',
-                                              '/Search',
-                                              'read',
-                                              user_path,
-                                              'AuthenticationAuthority'],
-                                             stderr=subprocess.STDOUT)
+            output = Principal.cmd_dscl_search(user_path)
             match = re.search(r'[a-zA-Z0-9+_\-\.]+@[^;]+\.[A-Z]{2,}', output, re.IGNORECASE)
             match = match.group()
 
