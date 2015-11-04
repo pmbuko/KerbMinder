@@ -1,3 +1,6 @@
 [submodule "pymacadmin"]
 	path = pymacadmin
 	url = https://github.com/MacSysadmin/pymacadmin.git
+[submodule "Library/Application Support/crankd/pymacad"]
+	path = Library/Application Support/crankd/pymacad
+	url = https://github.com/ftiff/pymacad.git

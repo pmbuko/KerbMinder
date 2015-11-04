@@ -32,6 +32,8 @@ import plistlib
 
 import Pashua
 
+from pymacad import ad
+
 __author__  = ('Peter Bukowinski (pmbuko@gmail.com)',
                'Francois Levaux-Tiffreau (fti@me.com)')
 __credits__ = ['Joe Chilcote',
@@ -60,19 +62,6 @@ def log_print(message, _log=True, _print=True):
         syslog.syslog(syslog.LOG_ALERT, message)
     if _print:
         print(message)
-
-
-def domain_dig_check(domain):
-    """Checks if AD domain is accessible by looking for SRV records for LDAP in DNS.
-    Returns True if it can ping the domain, otherwise exits.
-    """
-    dig = subprocess.check_output(['dig', '-t', 'srv', '_ldap._tcp.' + domain])
-    if 'ANSWER SECTION' not in dig:
-        log_print('Domain not accessible. Exiting.')
-        sys.exit(0)
-    log_print('Domain is accessible.')
-    return True
-
 
 def login_dialog(image): # pragma: no cover
     """Displays login and password prompt using Pashua. Returns login as string."""
@@ -240,63 +229,11 @@ class Principal(object):
 
 
     def get(self):
-
-        try:
-            self.principal = self.get_from_ad()
-        except (subprocess.CalledProcessError, Principal.NotBound):
-            self.principal = self.get_from_user()
-
-    @staticmethod
-    def cmd_dsconfigad_show():
-        return subprocess.check_output(['dsconfigad', '-show'])
-
-    @staticmethod
-    def get_from_ad():
-        """Returns the Kerberos ID of the current user by searching directory services. If no
-        KID is found, either the search path is incorrect or the domain is not accessible."""
-
-        try:
-            output = Principal.cmd_dsconfigad_show()
-            if "Active Directory" in output:
-                return Principal.get_principal_from_ad()
-            else:
-                raise Principal.NotBound("Computer is not bound.")
-
-        except (subprocess.CalledProcessError, Principal.NotBound) as error:
-            log_print(str(error))
-            raise
-
-    @staticmethod
-    def cmd_dscl_search(user_path):
-        return subprocess.check_output(['dscl',
-                                         '/Search',
-                                         'read',
-                                         user_path,
-                                         'AuthenticationAuthority'],
-                                         stderr=subprocess.STDOUT)
-
-    @staticmethod
-    def get_principal_from_ad():
-        """Returns the principal of the current user when computer is bound"""
-
-        import re
-        import getpass
-
-        user_path = '/Users/' + getpass.getuser()
-
-        try:
-            output = Principal.cmd_dscl_search(user_path)
-            match = re.search(r'[a-zA-Z0-9+_\-\.]+@[^;]+\.[A-Z]{2,}', output, re.IGNORECASE)
-            match = match.group()
-
-        except (subprocess.CalledProcessError, AttributeError) as error:
-            log_print("Can't find Principal from AD: " + str(error) + ". Exiting.")
-            sys.exit(0)
-
+        if ad.bound():
+            self.principal = ad.principal()
+            log_print("Kerberos principal is: " + str(self.principal))
         else:
-            log_print('Kerberos Principal is ' + match)
-            return match
-
+            self.principal = self.get_from_user()
 
     def get_from_user(self):
         """Will query cache. If unavailable, will query user, then write to cache."""
@@ -628,7 +565,8 @@ def main():
     principal.get()
     keychain = Keychain()
 
-    if not domain_dig_check(principal.get_realm()):
+    if not ad.accessible(principal.get_realm()):
+        log_print("Domain is not accessible. Exiting")
         sys.exit(0)
 
     if ticket.is_present():
