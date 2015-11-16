@@ -28,7 +28,7 @@ import sys
 import subprocess
 import syslog
 import os
-import plistlib
+import Foundation
 
 import Pashua
 
@@ -47,9 +47,9 @@ __maintainer__ = 'Peter Bukowinski'
 __email__      = 'pmbuko@gmail.com'
 __status__     = 'Development'
 
-PATH_ROOT  = os.path.dirname(os.path.realpath(__file__))
-PATH_USER  = os.path.expanduser('~/Library/Application Support/crankd')
-PLIST_PATH = '/Library/Preferences/org.pmbuko.kerbminder.plist'
+PATH_ROOT = os.path.dirname(os.path.realpath(__file__))
+PATH_USER = os.path.expanduser('~/Library/Application Support/crankd')
+kCFPreferencesCurrentApplication = 'org.pmbuko.kerbminder'
 
 
 def log_print(message, _log=True, _print=True):
@@ -103,8 +103,8 @@ def login_dialog(image): # pragma: no cover
     login.mandatory = 1
     ''' % (image, message)
 
-    try:
-        realms = g_prefs.get_realms()
+    realms = g_prefs.get_realms()
+    if realms:
         conf += '''
             # Add a popup menu
             realm.type = popup
@@ -113,7 +113,7 @@ def login_dialog(image): # pragma: no cover
             '''
         for realm in realms:
             conf = conf + "realm.option = " + realm + "\n"
-    except (KeyError, IOError):
+    else:
         conf += '''
             realm.type = textfield
             realm.width = 280
@@ -292,19 +292,15 @@ class Principal(object):
 
     def get_from_user(self):
         """Will query cache. If unavailable, will query user, then write to cache."""
-        try:
-            principal = self.read()
-            if principal:
-                log_print("Found principal from cache: " + principal)
-                return principal
-        except(IOError, ValueError):
+        principal = g_prefs.read('principal')
+        if principal:
+            log_print("Found principal from cache: " + principal)
+            return principal
+        else:
             log_print("Principal is not cached, asking user…")
             self.principal = login_dialog(g_prefs.get_image_path())
 
-            try:
-                self.write()
-            except IOError as error:
-                log_print("Cannot write principal: " + str(error))
+        self.write()
 
         log_print("Principal is: " + str(self))
         return str(self)
@@ -326,39 +322,11 @@ class Principal(object):
 
     def write(self):
         """Writes Principal to cache"""
-        path = g_prefs.get_principal_path()
-        if not os.path.exists(os.path.dirname(path)):
-            os.makedirs(os.path.dirname(path))
-
-        try:
-            with open(path, 'w') as _file:
-                _file.write(self.principal)
-        except IOError as error:
-            log_print("Unexpected error: " + str(error))
-            raise
-
-    @staticmethod
-    def read():
-        """Returns principal from cache"""
-        try:
-            with open(g_prefs.get_principal_path(), 'r') as _file:
-                principal = _file.read()
-            if principal:
-                return principal
-            else:
-                raise ValueError("Cannot read principal from cache")
-        except (IOError, ValueError) as error:
-            log_print("Warning: " + str(error))
-            raise
+        g_prefs.write('principal', self.principal)
 
     def delete(self):
         """Deletes cache file and removes from memory"""
-        try:
-            os.remove(g_prefs.get_principal_path())
-        except OSError as error:
-            log_print("Error deleting principal cache: " + str(error))
-            raise
-
+	g_prefs.delete('principal')
         self.principal = None
 
 
@@ -367,56 +335,33 @@ class Preferences(object):
         pass
 
     @staticmethod
-    def write(_plist_dict, _plist_path):
-        try:
-            plistlib.writePlist(_plist_dict, _plist_path)
-        except (ValueError, TypeError, AttributeError) as error:
-            log_print("Error writing Plist: " + str(error))
-            raise
+    def write(_plist_key, _plist_value):
+        Foundation.CFPreferencesSetAppValue(_plist_key, _plist_value, kCFPreferencesCurrentApplication)
+        if not Foundation.CFPreferencesAppSynchronize(kCFPreferencesCurrentApplication):
+            log_print("Error writing preferences")
 
     @staticmethod
-    def read(_plist_path):
-        ret = ""
-        try:
-            ret = plistlib.readPlist(_plist_path)
-        except (ValueError, TypeError, AttributeError) as error:
-            log_print("Error reading Plist: " + str(error))
-            raise
-        else:
-            return ret
+    def delete(_plist_key):
+        Foundation.CFPreferencesSetAppValue(_plist_key, None, kCFPreferencesCurrentApplication)
+        if not Foundation.CFPreferencesAppSynchronize(kCFPreferencesCurrentApplication):
+            log_print("Error writing preferences")
+
+    @staticmethod
+    def read(_plist_key):
+        return Foundation.CFPreferencesCopyAppValue(_plist_key, kCFPreferencesCurrentApplication)
 
     @staticmethod
     def get_realms():
-        try:
-            prefs = g_prefs.read(PLIST_PATH)
-            return prefs["realms"]
-        except (IOError, KeyError):
-            log_print("Realms not specified.")
-            raise
+        return g_prefs.read('realms')
 
     @staticmethod
     def get_image_path():
         default_image_path = PATH_ROOT + '/KerbMinder_logo.png'
-        try:
-            prefs = g_prefs.read(PLIST_PATH)
-            return prefs["image_path"]
-        except (IOError, KeyError):
+        image_path = g_prefs.read('image_path')
+	if image_path is None:
             return default_image_path
-
-    @staticmethod
-    def get_principal_path():
-        default_principal_path = PATH_USER + '/kmfiles/principal'
-        try:
-            prefs = g_prefs.read(PLIST_PATH)
-            return prefs["principal_path"]
-        except (IOError, KeyError):
-            return default_principal_path
-
-    def set_image_path(self, image_path):
-        raise NotImplementedError
-
-    def write_defaults(self):
-        raise NotImplementedError
+        else:
+            return image_path 
 
 
 class Keychain(object):
