@@ -51,17 +51,36 @@ I'd also like to thank
 ## Configuring
 
 KerbMinder works out of the box. Simply install it and you're good to go !
+
 The best way to launch it manually is with:
 ```sudo touch /Library/Application\ Support/crankd/kmfiles/trigger```
 
-### Preferences
+### Preferences (optional)
 
-This utility can be configured by changing /Library/Preferences/org.pmbuko.kerbminder.plist
+This utility can be configured optionally by changing ```/Library/Preferences/org.pmbuko.kerbminder.plist```
 - image_path (string): absolute path to your logo (max width: 128px, PNG is preferred)
 - realms (array of strings): will change the 'realm' field into a drop-down menu. 
 
 You can also pre-populate ~/Library/Preferences/org.pmbuko.kerbminder.plist
 - principal (string): User's principal, as "login@REALM.TLD"
+
+#### Example: 
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>image_path</key>
+	<string>/Library/Application Support/crankd/my_logo.png</string>
+	<key>realms</key>
+	<array>
+		<string>EMEA.REALM.TLD</string>
+		<string>USA.REALM.TLD</string>
+		<string>APAC.REALM.TLD</string>
+	</array>
+</dict>
+</plist>
+```
 
 ## How It Works
 
@@ -142,6 +161,3 @@ sudo launchctl load /Library/LaunchDaemons/com.googlecode.pymacadmin.crankd.plis
 launchctl load /Library/LaunchAgents/org.pmbuko.kerbminder.plist
 ```
 
-## ADPassMon Integration
-
-The latest release of my [ADPassMon](https://github.com/macmule/ADPassMon/releases) software lets users enable/disable KerbMinder via a menu item.
