@@ -48,6 +48,21 @@ I'd also like to thank
 * crankd (PyMacAdmin, included as a submodule)
 * Pashua (included)
 
+## Configuring
+
+KerbMinder works out of the box. Simply install it and you're good to go !
+The best way to launch it manually is with:
+```sudo touch /Library/Application\ Support/crankd/kmfiles/trigger```
+
+### Preferences
+
+This utility can be configured by changing /Library/Preferences/org.pmbuko.kerbminder.plist
+- image_path (string): absolute path to your logo (max width: 128px, PNG is preferred)
+- realms (array of strings): will change the 'realm' field into a drop-down menu. 
+
+You can also pre-populate ~/Library/Preferences/org.pmbuko.kerbminder.plist
+- principal (string): User's principal, as "login@REALM.TLD"
+
 ## How It Works
 
 KerbMinder logs its activity to the system log. You can open up Console.app and filter for “kerbminder” to see what it’s up to. You may want to make a network change (e.g. toggle off/on your wi-fi interface) to force it to act.
