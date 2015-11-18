@@ -42,7 +42,7 @@ __credits__ = ['Joe Chilcote',
                'Tim Sutton']
 
 __license__    = 'GPL'
-__version__    = '1.3'
+__version__    = '1.4'
 __maintainer__ = 'Peter Bukowinski'
 __email__      = 'pmbuko@gmail.com'
 __status__     = 'Development'
