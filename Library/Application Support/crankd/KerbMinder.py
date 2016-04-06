@@ -47,6 +47,7 @@ __maintainer__ = 'Peter Bukowinski'
 __email__      = 'pmbuko@gmail.com'
 __status__     = 'Development'
 
+
 PATH_ROOT = os.path.dirname(os.path.realpath(__file__))
 PATH_USER = os.path.expanduser('~/Library/Application Support/crankd')
 kCFPreferencesCurrentApplication = 'org.pmbuko.kerbminder'
@@ -297,7 +298,7 @@ class Principal(object):
             log_print("Found principal from cache: " + principal)
             return principal
         else:
-            log_print("Principal is not cached, asking user…")
+            log_print("Principal is not cached, asking user...")
             self.principal = login_dialog(g_prefs.get_image_path())
 
         self.write()
@@ -472,10 +473,11 @@ class Ticket(object):
 
     def kinit_return_exception(self, _input):
 
-        if _input in self.kinit_return_exceptions:
-            raise self.kinit_return_exceptions[_input]
-        else:
-            return True
+        for (string, error) in self.kinit_return_exceptions.iteritems():
+            if string in _input:
+                raise error
+        
+        return True
 
     @staticmethod
     def is_present():
@@ -496,7 +498,7 @@ class Ticket(object):
 
     @staticmethod
     def refresh(_principal):
-        log_print("Refreshing Ticket…")
+        log_print("Refreshing Ticket...")
         try:
             subprocess.check_output(['kinit', '--renew'])
 
@@ -554,6 +556,7 @@ class Ticket(object):
             if 'save' in locals():
                 if save == "1":
                     keychain.store(principal, password)
+            log_print(out)
 
             log_print("Ticket initiation OK")
             return True
