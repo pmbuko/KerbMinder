@@ -70,6 +70,8 @@ You can also pre-populate ~/Library/Preferences/org.pmbuko.kerbminder.plist
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>principal</key>
+	<string>login@REALM.TLD</string>
 	<key>image_path</key>
 	<string>/Library/Application Support/crankd/my_logo.png</string>
 	<key>realms</key>
@@ -81,6 +83,25 @@ You can also pre-populate ~/Library/Preferences/org.pmbuko.kerbminder.plist
 </dict>
 </plist>
 ```
+##### Example with Casper Suite
+If your computers are assigned to the right AD users, you can prepopulate principal this way:
+
+1. Create a Configuration Profile
+2. Use Computer Level
+3. Custom Settings
+4. Preference Domain: org.pmbuko.kerbminder
+5. Upload the following Property List File:
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>principal</key>
+	<string>$USERNAME@REALM.TLD</string>
+</dict>
+</plist>
+```
+ Please check in Syspref > Profiles or `defaults read "/Library/Managed Preferences/org.pmbuko.kerbminder"` if you have the right profile with the correct principal value. You need to push profile for it to work (download will not substitute variables).
 
 ## How It Works
 
@@ -139,7 +160,7 @@ sudo cp Library/Preferences/com.googlecode.pymacadmin.crankd.plist /Library/Pref
 sudo cp -Rp /Volumes/Pashua/Pashua.app /Library/Application\ Support/crankd/
 sudo xattr -d com.apple.quarantine /Library/Application\ Support/crankd/Pashua.app
 ```
-
+s
 Set the correct permissions:
 
 ```
@@ -161,3 +182,6 @@ sudo launchctl load /Library/LaunchDaemons/com.googlecode.pymacadmin.crankd.plis
 launchctl load /Library/LaunchAgents/org.pmbuko.kerbminder.plist
 ```
 
+## Support
+
+Please join us on #KerbMinder on Slack (signup here: https://macadmins.org)
