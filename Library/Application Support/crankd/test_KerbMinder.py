@@ -12,6 +12,12 @@ from mock import *
 def no_credentials_found(*args, **kwargs):
     raise CalledProcessError(1, args, "klist: krb5_cc_get_principal: No credentials cache file found")
 
+class TestSystem(TestCase):
+
+    @patch('getpass.getuser')
+    def test_exit_if_root(self, mock_check_getpass):
+        mock_check_getpass.return_value = "root"
+        nose.tools.assert_raises(SystemExit, System.get_current_user)
 
 class TestPrincipal(TestCase):
 
@@ -34,6 +40,9 @@ class TestPrincipal(TestCase):
             Principal.get_from_ad()
         nose.tools.ok_(mock_get_principal_from_ad.called)
         check_output.assert_called_with(['dsconfigad', '-show'])
+
+
+
 
     @patch('getpass.getuser')
     def test_ad_bound_notenabled(self, mock_getpass_getuser):

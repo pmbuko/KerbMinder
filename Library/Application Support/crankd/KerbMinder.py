@@ -225,6 +225,20 @@ def exit_dialog(message, title, log):
         sys.exit(1)
 
 
+class System(object):
+
+    @staticmethod
+    def get_current_user():
+        import getpass
+
+        currentuser = getpass.getuser()
+
+        if currentuser == "root":
+            log_print("Do not use Kerbminder as root. Exiting.")
+            sys.exit(0)
+        else:
+            return currentuser
+
 class Principal(object):
     """login@REALM.TLD"""
     def __init__(self, principal=None):
@@ -263,16 +277,17 @@ class Principal(object):
             log_print(str(error))
             raise
 
+
     @staticmethod
     def get_principal_from_ad():
         """Returns the principal of the current user when computer is bound"""
 
         import re
-        import getpass
 
-        user_path = '/Users/' + getpass.getuser()
+        user_path = '/Users/' + System.get_current_user()
 
         try:
+
             output = subprocess.check_output(['dscl',
                                               '/Search',
                                               'read',
@@ -521,7 +536,7 @@ class Ticket(object):
 
         try:
             if keychain.exists(principal):
-                log_print('Initiating ticket with Keychain')
+                log_print('Initiating ticket with Keychain.')
 
                 out = subprocess.check_output(['kinit',
                                            '-l', '10h',
@@ -563,6 +578,10 @@ class Ticket(object):
 
 
 def main():
+
+    # Check if current user is root.
+    System.get_current_user()
+
     ticket = Ticket()
     principal = Principal()
     principal.get()
