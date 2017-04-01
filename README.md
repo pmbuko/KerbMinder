@@ -1,7 +1,7 @@
 
 
 
-⚠️ This project is  nolonger maintained ⚠️
+⚠️ This project is no longer maintained ⚠️
 
 We invite you to check MacAdminsDoc [Active Directory](http://macadminsdoc.readthedocs.io/en/master/Integration/Active_Directory.html) page to select an alternative such as:
 
