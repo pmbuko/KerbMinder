@@ -1,3 +1,19 @@
+
+
+
+⚠️ This project is  nolonger maintained ⚠️
+
+We invite you to check MacAdminsDoc [Active Directory](http://macadminsdoc.readthedocs.io/en/master/Integration/Active_Directory.html) page to select an alternative such as:
+
+- Apple Enteprise Connect (contact your local Apple Sales Representative)
+- Truesource Labs [NoMAD](https://www.nomad.menu)
+
+
+
+![](http://www.doodlecat.com/uploaded_images/ThatsAll-724485.jpg)
+
+
+
 [![Build Status](https://travis-ci.org/pmbuko/KerbMinder.svg?branch=master)](https://travis-ci.org/pmbuko/KerbMinder)
 [![codecov.io](https://codecov.io/github/pmbuko/KerbMinder/coverage.svg?branch=master)](https://codecov.io/github/pmbuko/KerbMinder?branch=master)
 
